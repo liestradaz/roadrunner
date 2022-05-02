@@ -25,4 +25,4 @@ const runningRouteSchema = new Schema(
 
 const runningRoute = model("runningRoute", runningRouteSchema)
 
-module.export = User
+module.exports = runningRoute

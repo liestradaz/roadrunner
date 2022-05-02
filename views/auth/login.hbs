@@ -1,14 +1,21 @@
-<form action="/auth/login" method="POST">
-   <label> Username
-      <input type="text" name="username">
-   </label>
-   <label> Password
-      <input type="password" name="password">
-   </label>
 
-   <button type="submit">Submit</button>
+<form class="box">
+   <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+         <input class="input is-rounded " type="email" placeholder="e.g. alex@example.com">
+      </div>
+   </div>
+   <div class="field">
+      <label class="label">Password</label>
+      <div class="control">
+         <input class="input is-rounded" type="password" placeholder="********">
+      </div>
+   </div>
+
+   <button class="button is-primary">Log in</button>
 </form>
 
 {{#if errorMessage}}
-   {{errorMessage}}
+{{errorMessage}}
 {{/if}}
