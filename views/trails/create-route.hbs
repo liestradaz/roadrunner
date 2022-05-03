@@ -1,0 +1,37 @@
+<h2>Create a new route</h2>
+
+<form action="/routes/create" method="POST">
+  <label> name </label>
+  <input type="text" name="name" />
+  <label>Private?</label>
+  <input type="radio" name="private" id="private" />
+  <div id="map"></div>
+
+  <div>
+    <h6>Start Point</h6>
+    <label for="">Latitude</label>
+    <input type="text" name="startLat" id="startlat" readonly />
+    <label for="">Longitude </label>
+    <input type="text" name="startLng" id="startlng" readonly/>
+  </div>
+
+  <div>
+    <h6>End Point</h6>
+    <label for="">Latitude</label>
+    <input type="text" name="endLat" id="endlat" readonly />
+    <label for="">Longitude </label>
+    <input type="text" name="endLng" id="endlng" readonly />
+  </div>
+
+  <div>
+      <h6>Distance</h6>
+      <input type="text" name="distance" id="distancebox" readonly />
+  </div>
+
+  <button type="submit">Create</button>
+</form>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?libraries=drawing,places&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
+></script>
+<script src="../js/gmapsAPI.js"></script>
