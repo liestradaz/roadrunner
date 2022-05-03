@@ -100,7 +100,6 @@ function calcRoute(map, origin, destination) {
           // everything is ok
           directionsDisplay.setDirections(response);
           this.routeData = response.routes[0].legs[0]
-          console.log(response.routes[0].legs[0])
           directionsDisplay.setMap(map);
           resolve(response.routes[0].legs[0])
   
@@ -149,10 +148,6 @@ function getMapImage(startPos, endPos) {
     markers = "markers=color:red%7C"
     options = "&zoom=12&size=600x400&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
 
-    console.log("startPos: ", startPos)
-    console.log("endPos: ", endPos)
-    console.log("startPos: ", startPos.lat, ",", startPos.lng)
-    console.log("endPos: ", endPos.lat, ",", endPos.lng)
     url = baseUrl + markers + startPos.lat + "," + startPos.lng + "%7C" + endPos.lat + "," + endPos.lng + options
 
     return url
@@ -175,14 +170,10 @@ function startMap() {
   let endPos
   map.addListener("click", (mapsMouseEvent) => {
 
-    console.log(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
-    console.log("c", clickCounter)
-
     if (clickCounter == 0) {
 
       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
       startPos = mapsMouseEvent.latLng.toJSON()
-      console.log(startPos)
       markPos(map, mapsMouseEvent.latLng.toJSON())
       startLatBox.value = startPos.lat
       startLngBox.value = startPos.lng
@@ -199,12 +190,10 @@ function startMap() {
       calcRoute(map, startPos, endPos)
         .then(data => {
           rData = data
-          console.log("e", data.distance.text)
           distanceBox.value = data.distance.text
           return data
         })
         .catch(error => console.log(error))
-      console.log(rData)
     } else {
         clickCounter = 0
     }
