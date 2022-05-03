@@ -1,14 +1,6 @@
 <h2>Lista de rutas</h2>
-<p>{{creator}}</p>
 <div class="columns is-multiline">
   {{#each route}}
-    {{!-- <div>
-    <h3><strong>Name: </strong>{{name}}</h3>
-    <h4><strong>Creator: </strong>{{creator.username}}</h4>
-    <img src="{{image}}" alt="">
-    <p><strong>Distance: </strong>{{distance}}</p>
-</div> --}}
-
     <div class="column is-one-quarter">
       <div class="card">
         <div class="card-image">
@@ -43,17 +35,16 @@
           </div>
           <div class="card">
             <footer class="card-footer">
+              <a href="/routes/{{_id}}" class="card-footer-item">Details</a>
               <a href="#" class="card-footer-item">Share</a>
               <a href="/routes/{{_id}}/edit" class="card-footer-item">Edit</a>
-              <a href="#" class="card-footer-item">Delete</a>
-              
             </footer>
 
           </div>
           <div class="pt-3 mb-0 is-flex is-justify-content-center">
-          <form action="/routes/{{_id}}/delete" method="post">
-                <button type="submit" class="delete is-large">Delete</button>
-              </form>
+            <form action="/routes/{{_id}}/delete" method="post" class="mb-0">
+              <button type="submit" class="delete is-large"></button>
+            </form>
           </div>
         </div>
       </div>

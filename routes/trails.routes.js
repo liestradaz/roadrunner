@@ -7,13 +7,17 @@ const axios = require("axios")
 const Routes = require("../models/Route.model.js");
 const User = require("../models/User.model.js");
 
+// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
+const isLoggedOut = require("../middleware/isLoggedOut");
+const isLoggedIn = require("../middleware/isLoggedIn");
+
 //****************** Routes ******************
 //Create Running route
-router.get("/create", (req, res, next) => {
+router.get("/create", isLoggedIn, (req, res, next) => {
     res.render("trails/create-route")
 })
 
-router.post("/create", (req, res, next) => {
+router.post("/create", isLoggedIn, (req, res, next) => {
     const { name, private, startLat, startLng, endLat, endLng, distance } = req.body
     console.log(req.body)
     console.log(name, startLat, startLng, endLat, endLng, distance)
@@ -32,7 +36,7 @@ router.post("/create", (req, res, next) => {
 })
 
 //Running route list page
-router.get("/list", (req, res, next) => {
+router.get("/list", isLoggedIn, (req, res, next) => {
     Routes.find()
         .populate("creator")
         .then(route => {
@@ -45,7 +49,7 @@ router.get("/list", (req, res, next) => {
 })
 
 // Running route Details page
-router.get("/routes/:id", (req, res, next) => {
+router.get("/:id", isLoggedIn, (req, res, next) => {
     const { id } = req.params
     Routes.findById(id)
         .then(elem => res.render("trails/details"), { elem })
@@ -53,14 +57,14 @@ router.get("/routes/:id", (req, res, next) => {
 })
 
 //Edit Running route
-router.get("/routes/:id/edit", (req, res, next) => {
+router.get("/:id/edit", isLoggedIn, (req, res, next) => {
     const { id } = req.params
     Routes.findById(id)
-        .then(elem => res.render("trails/edit-route"), { elem })
+        .then(elem => res.render("trails/edit-route", { elem }))
         .catch(err => console.log(err))
 })
 
-router.post("/routes/:id/edit", (req, res, next) => {
+router.post("/:id/edit", isLoggedIn, (req, res, next) => {
     const { id } = req.params
     const { name, private, startLat, startLng, endLat, endLng, distance } = req.body
 
@@ -70,17 +74,17 @@ router.post("/routes/:id/edit", (req, res, next) => {
     const image = baseUrl + startLat + "," + startLng + "%7C" + endLat + "," + endLng + optionsStr
     Routes.findByIdAndUpdate(id, { name, startPoint: [startLat, startLng], endPoint: [endLat, endLng], distance, image }, { new: true })
         .then(() => {
-            res.redirect("/drones")
+            res.redirect("/routes/list")
         })
         .catch(err => console.log(err))
 })
 
 //Delete running route
-router.post("/routes/:id/delete", (req, res, next) => {
+router.post("/:id/delete", isLoggedIn, (req, res, next) => {
     const { id } = req.params
-    Drone.findByIdAndDelete(id)
+    Routes.findByIdAndDelete(id)
         .then(() => {
-            res.redirect("/list")
+            res.redirect("/routes/list")
         })
         .catch(err => console.log(err))
 })
