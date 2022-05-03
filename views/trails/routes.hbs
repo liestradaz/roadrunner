@@ -1,0 +1,63 @@
+<h2>Lista de rutas</h2>
+<p>{{creator}}</p>
+<div class="columns is-multiline">
+  {{#each route}}
+    {{!-- <div>
+    <h3><strong>Name: </strong>{{name}}</h3>
+    <h4><strong>Creator: </strong>{{creator.username}}</h4>
+    <img src="{{image}}" alt="">
+    <p><strong>Distance: </strong>{{distance}}</p>
+</div> --}}
+
+    <div class="column is-one-quarter">
+      <div class="card">
+        <div class="card-image">
+          <figure class="image is-5by4">
+            <img
+              class="image is-128x128"
+              src="{{image}}"
+              alt="Placeholder image"
+            />
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img
+                  src="https://bulma.io/images/placeholders/96x96.png"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4">{{creator.username}}</p>
+              <p class="subtitle is-6"><a href="">@{{creator.username}}</a></p>
+            </div>
+          </div>
+
+          <div class="content">
+            <p><strong>Distance: </strong>{{distance}}</p>
+
+            <i>Last update: {{updatedAt}}</i>
+          </div>
+          <div class="card">
+            <footer class="card-footer">
+              <a href="#" class="card-footer-item">Share</a>
+              <a href="/routes/{{_id}}/edit" class="card-footer-item">Edit</a>
+              <a href="#" class="card-footer-item">Delete</a>
+              
+            </footer>
+
+          </div>
+          <div class="pt-3 mb-0 is-flex is-justify-content-center">
+          <form action="/routes/{{_id}}/delete" method="post">
+                <button type="submit" class="delete is-large">Delete</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {{/each}}
+</div>

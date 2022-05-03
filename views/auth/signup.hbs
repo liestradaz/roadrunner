@@ -1,66 +1,35 @@
-<form class="box" action="" method="get" >
-  <div class="field">
-    <div class="field">
-      <label class="label">Name</label>
-      <div class="control">
-        <input class="input is-rounded" type="text" placeholder="Name">
-      </div>
-    </div>
+<div class="columns is-flex is-justify-content-center">
+<form action="/auth/signup" method="post" class="box column is-one-quarter">
 
-    <div class="field">
-      <label class="label">Username</label>
-      <div class="control has-icons-left has-icons-right">
-        <input class="input is-rounded" type="text" placeholder="Username" value="">
-        <span class="icon is-small is-left">
-          <i class="fas fa-user"></i>
-        </span>
-        <span class="icon is-small is-right">
-          <i class="fas fa-check"></i>
-        </span>
-      </div>
-    </div>
-
-    <div class="field">
-      <label class="label">Email</label>
-      <div class="control has-icons-left has-icons-right">
-        <input class="input is-rounded" type="email" placeholder="@" value="">
-        <span class="icon is-small is-left">
-          <i class="fas fa-envelope"></i>
-        </span>
-        <span class="icon is-small is-right">
-          <i class="fas fa-exclamation-triangle"></i>
-        </span>
-      </div>
-    </div>
-
-    <div class="field">
-      <label class="label">Password</label>
-      <div class="control">
-        <input class="input is-rounded" type="password" placeholder="********">
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="control">
-        <label class="checkbox">
-          <input type="checkbox">
-          I agree to the <a href="#">terms and conditions</a>
-        </label>
-      </div>
-    </div>
-
-    <div class="field is-grouped">
-      <div class="control">
-        <button class="button is-link">Submit</button>
-      </div>
-</form>
-<form action="/" method="get">
+<div class="field">
+  <label class="label">Username</label>
   <div class="control">
-    <button class="button is-link is-light">Cancel</button>
+    <input class="input" type="text" name="username">
   </div>
+
+</div>
+
+<div class="field">
+  <label class="label">Email</label>
+  <div class="control">
+    <input class="input" type="email" name="email" required>
   </div>
+
+</div>
+
+<div class="field">
+<label class="label" for="">Password</label>
+<input class="input" type="password" name="password" placeholder="********" required minlength="6"/>
+</div>
+
+<div class="field is-grouped is-flex is-justify-content-center">
+  <div class="control">
+    <button type="submit" class="button is-link">Submit</button>
   </div>
+</div>
+
 </form>
+</div>
 
 {{#if errorMessage}}
 {{errorMessage}}
