@@ -25,4 +25,6 @@ const runningRouteSchema = new Schema(
 
 const RunningRoute = model("RunningRoute", runningRouteSchema)
 
+
 module.exports = RunningRoute
+

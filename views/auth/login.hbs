@@ -1,14 +1,30 @@
-<form action="/auth/login" method="POST">
-   <label> Username
-      <input type="text" name="username">
-   </label>
-   <label> Password
-      <input type="password" name="password">
-   </label>
+<div class="columns is-flex is-justify-content-center">
 
-   <button type="submit">Submit</button>
-</form>
+  <form class="box column is-one-quarter" action="/auth/login" method="post">
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input is-rounded" type="email" name="email" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Password</label>
+      <div class="control">
+        <input
+          class="input is-rounded"
+          type="password"
+          placeholder="********"
+          name="password"
+        />
+      </div>
+    </div>
+
+    <div class="is-flex is-justify-content-center">
+      <button type="submit" class="button is-primary">Log in</button>
+    </div>
+  </form>
+</div>
 
 {{#if errorMessage}}
-   {{errorMessage}}
+  {{errorMessage}}
 {{/if}}

@@ -1,13 +1,35 @@
-<form action="/auth/signup" method="POST">
-   <label> Username
-      <input type="text" name="username">
-   </label>
-   <label> Password
-      <input type="password" name="password">
-   </label>
+<div class="columns is-flex is-justify-content-center">
+<form action="/auth/signup" method="post" class="box column is-one-quarter">
 
-   <button type="submit">Submit</button>
+<div class="field">
+  <label class="label">Username</label>
+  <div class="control">
+    <input class="input" type="text" name="username">
+  </div>
+
+</div>
+
+<div class="field">
+  <label class="label">Email</label>
+  <div class="control">
+    <input class="input" type="email" name="email" required>
+  </div>
+
+</div>
+
+<div class="field">
+<label class="label" for="">Password</label>
+<input class="input" type="password" name="password" placeholder="********" required minlength="6"/>
+</div>
+
+<div class="field is-grouped is-flex is-justify-content-center">
+  <div class="control">
+    <button type="submit" class="button is-link">Submit</button>
+  </div>
+</div>
+
 </form>
+</div>
 
 {{#if errorMessage}}
    {{errorMessage}}
