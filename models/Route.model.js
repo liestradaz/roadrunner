@@ -11,7 +11,8 @@ const runningRouteSchema = new Schema(
         image: String,
         creator: {
             type: Schema.Types.ObjectId, 
-            ref: 'User'            
+            ref: 'User',
+            unique: false            
         }/* ,
         followers: [{
             type: Schema.Types.ObjectId, 
