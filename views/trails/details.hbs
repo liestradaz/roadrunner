@@ -1,5 +1,39 @@
 <h2>Details</h2>
 
+<h3><strong>Name: </strong> {{elem.name}}</h3>
+<h4>{{creator.username}}</h4>
+{{#if elem.private}}
+    <p><strong></strong>Private: </strong> True</p>
+    {{else}}
+    <p><strong></strong>Private: </strong> False</p>
+{{/if}}
+
+ <div id="map"></div>
+
+ <div>
+    <h6>Start Point</h6>
+    <label for="">Latitude</label>
+    <input type="text" name="startLat" id="startlat" value={{elem.startPoint.[0]}} readonly />
+    <label for="">Longitude </label>
+    <input type="text" name="startLng" id="startlng" value={{elem.startPoint.[1]}} readonly/>
+  </div>
+
+  <div>
+    <h6>End Point</h6>
+    <label for="">Latitude</label>
+    <input type="text" name="endLat" id="endlat" value={{elem.endPoint.[0]}} readonly />
+    <label for="">Longitude </label>
+    <input type="text" name="endLng" id="endlng" value={{elem.endPoint.[1]}} readonly />
+  </div>
+
+  <div>
+      <p><strong>Distance</strong> {{elem.distance}}</p>
+
+  </div>
 
 
 
+<script
+  src="https://maps.googleapis.com/maps/api/js?libraries=drawing,places&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
+></script>
+<script src="../js/route-details.js"></script>

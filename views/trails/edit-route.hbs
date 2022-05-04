@@ -1,1 +1,39 @@
-<h2>Edit route</h2>
+<h2 class="title is-3 has-text-centered">Edit route</h2>
+
+<form action="/routes/{{elem._id}}/edit" method="POST">
+  <label> name </label>
+  <input type="text" name="name" value={{elem.name}} />
+  <label>Private?</label>
+  <input type="radio" name="private" id="private" value={{elem.private}}/>
+
+  <div id="map"></div>
+
+  <div>
+    <h6>Start Point</h6>
+    <label for="">Latitude</label>
+    <input type="text" name="startLat" id="startlat" value={{elem.startPoint.[0]}} readonly />
+    <label for="">Longitude </label>
+    <input type="text" name="startLng" id="startlng" value={{elem.startPoint.[1]}} readonly/>
+  </div>
+
+  <div>
+    <h6>End Point</h6>
+    <label for="">Latitude</label>
+    <input type="text" name="endLat" id="endlat" value={{elem.endPoint.[0]}} readonly />
+    <label for="">Longitude </label>
+    <input type="text" name="endLng" id="endlng" value={{elem.endPoint.[1]}} readonly />
+  </div>
+
+  <div>
+      <h6>Distance</h6>
+      <input type="text" name="distance" id="distancebox" value={{elem.distance}} readonly />
+  </div>
+
+  <button type="submit">Update</button>
+</form>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?libraries=drawing,places&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
+></script>
+<script src="/js/route-edit.js"></script>
+
