@@ -116,9 +116,14 @@ function getMapImage(startPos, endPos) {
 
 function startMap() {
   // Initialize the map
+  const ironhackMexico = {
+    lat: 19.421250608923003,
+    lng: -99.16329503059387
+  }
   const map = new google.maps.Map(document.getElementById('map'),
     {
-      zoom: 15
+      zoom: 19,
+      center: ironhackMexico
     }
   );
 
