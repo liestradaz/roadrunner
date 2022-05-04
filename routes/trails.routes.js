@@ -69,10 +69,11 @@ router.get("/:id/edit", isLoggedIn, (req, res, next) => {
 
 router.post("/:id/edit", isLoggedIn, (req, res, next) => {
     const { id } = req.params
+    console.log("id:",req.params)
     const { name, private, startLat, startLng, endLat, endLng, distance } = req.body
 
     baseUrl = "https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C"
-    optionsStr = "&zoom=15&size=600x400&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
+    optionsStr = "&zoom=12&size=600x400&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
 
     const image = baseUrl + startLat + "," + startLng + "%7C" + endLat + "," + endLng + optionsStr
     Routes.findByIdAndUpdate(id, { name, startPoint: [startLat, startLng], endPoint: [endLat, endLng], distance, image }, { new: true })

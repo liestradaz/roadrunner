@@ -1,6 +1,6 @@
-<h2>Edit route</h2>
+<h2 class="title is-3 has-text-centered">Edit route</h2>
 
-<form action="/routes/:id/edit" method="POST">
+<form action="/routes/{{elem._id}}/edit" method="POST">
   <label> name </label>
   <input type="text" name="name" value={{elem.name}} />
   <label>Private?</label>
@@ -29,11 +29,11 @@
       <input type="text" name="distance" id="distancebox" value={{elem.distance}} readonly />
   </div>
 
-  <button type="submit">Create</button>
+  <button type="submit">Update</button>
 </form>
 
 <script
   src="https://maps.googleapis.com/maps/api/js?libraries=drawing,places&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
 ></script>
-<script src="../js/route-edit.js"></script>
+<script src="/js/route-edit.js"></script>
 

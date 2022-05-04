@@ -1,4 +1,6 @@
-function markPos(map, posObject){
+const directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+
+ function markPos(map, posObject){
     const newMarker = new google.maps.Marker({
         position: {
             lat: posObject.lat,
@@ -10,10 +12,9 @@ function markPos(map, posObject){
       });
       google.maps.event.addListener(newMarker,'drag',function(event) {
         startLatBox.value = event.latLng.lat()
-        console.log(event.latLng.lat());
-        console.log(event.latLng.lng());
       });
-}
+} 
+
 
 function getUserLocation(map){
     if (navigator.geolocation) {
@@ -26,7 +27,7 @@ function getUserLocation(map){
           // Center map with user location
           map.setCenter(user_location);
           
-    
+          const img = "../images/street-view-48.png"
           // Add a marker for your user location
           const ironhackBCNMarker = new google.maps.Marker({
             position: {
@@ -34,7 +35,8 @@ function getUserLocation(map){
               lng: user_location.lng
             },
             map: map,
-            title: "You are here."
+            icon: img
+            
           });
     
         }, function () {
@@ -45,46 +47,11 @@ function getUserLocation(map){
       }
 }
 
-/* function calcRoute(map, origin, destination) {
-  let routeData = 1
-  const directionsService = new google.maps.DirectionsService;
-  const directionsDisplay = new google.maps.DirectionsRenderer;
-  const directionRequest = {
-    origin: origin,
-    destination: destination,
-    //travelMode	string as DRIVING, BICYCLING, TRANSIT, WALKING
-    travelMode: 'WALKING'
-  };
-
-  directionsService.route(
-    directionRequest,
-    function (response, status) {
-      if (status === 'OK') {
-        // everything is ok
-        directionsDisplay.setDirections(response);
-        this.routeData = response.routes[0].legs[0]
-        console.log(response.routes[0].legs[0])
-        
-
-      } else {
-        // something went wrong
-        window.alert('Directions request failed due to ' + status);
-      }
-
-      //return routeData
-    }
-  );
-  
-  directionsDisplay.setMap(map);
-  //console.log(routeData)
-  //return routeData
-} */
-
 //promise
 function calcRoute(map, origin, destination) {
   let routeData = 1
   const directionsService = new google.maps.DirectionsService;
-  const directionsDisplay = new google.maps.DirectionsRenderer;
+  
   const directionRequest = {
     origin: origin,
     destination: destination,
@@ -107,15 +74,9 @@ function calcRoute(map, origin, destination) {
           // something went wrong
           window.alert('Directions request failed due to ' + status);
         }
-  
-        //return routeData
       }
     );
   })
-  
-  //directionsDisplay.setMap(map);
-  //console.log(routeData)
-  //return routeData
 }
 
 function locateAddress(map){
@@ -206,12 +167,12 @@ function startMap() {
 }
 
 window.onload = function(){
-    startMap();
-    startLatBox = document.getElementById("startlat")
-    startLngBox = document.getElementById("startlng")
-    endLatBox = document.getElementById("endlat")
-    endLngBox = document.getElementById("endlng")
-    distanceBox = document.getElementById("distancebox")
-    
+  startLatBox = document.getElementById("startlat")
+  startLngBox = document.getElementById("startlng")
+  endLatBox = document.getElementById("endlat")
+  endLngBox = document.getElementById("endlng")
+  distanceBox = document.getElementById("distancebox")
+  startMap();
+  
 
 }

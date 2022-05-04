@@ -1,4 +1,4 @@
-<h2>Lista de rutas</h2>
+<h2 class="title is-3 has-text-centered">Public Routes</h2>
 <div class="columns is-multiline">
   {{#each route}}
     <div class="column is-one-quarter">
@@ -17,13 +17,13 @@
             <div class="media-left">
               <figure class="image is-48x48">
                 <img
-                  src="https://bulma.io/images/placeholders/96x96.png"
+                  src={{creator.profilePicture}}
                   alt="Placeholder image"
                 />
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">{{creator.username}}</p>
+              <p class="title is-4">{{name}}</p>
               <p class="subtitle is-6"><a href="">@{{creator.username}}</a></p>
             </div>
           </div>
