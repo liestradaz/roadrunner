@@ -52,7 +52,10 @@ router.get("/list", isLoggedIn, (req, res, next) => {
 router.get("/:id", isLoggedIn, (req, res, next) => {
     const { id } = req.params
     Routes.findById(id)
-        .then(elem => res.render("trails/details"), { elem })
+        .populate("creator")
+        .then(elem => {
+            console.log(elem)
+            res.render("trails/details", { elem })})
         .catch(err => console.log(err))
 })
 
