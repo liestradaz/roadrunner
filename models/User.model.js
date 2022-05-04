@@ -15,6 +15,7 @@ const userSchema = new Schema(
         },
         password: String,
         profilePicture: String,
+        routesCreated: [String],
         followersList: [{
             type: Schema.Types.ObjectId, 
             ref: 'User'

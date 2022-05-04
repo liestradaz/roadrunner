@@ -10,6 +10,7 @@ const User = require("../models/User.model.js");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const isCreator = require("../middleware/isCreator")
 
 //****************** Routes ******************
 //Create Running route
@@ -19,17 +20,25 @@ router.get("/create", isLoggedIn, (req, res, next) => {
 
 router.post("/create", isLoggedIn, (req, res, next) => {
     const { name, private, startLat, startLng, endLat, endLng, distance } = req.body
-    console.log(req.body)
-    console.log(name, startLat, startLng, endLat, endLng, distance)
-    console.log({ name, startPoint: [startLat, startLng], endPoint: [endLat, endLng], distance })
+    
+
     baseUrl = "https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C"
     optionsStr = "&zoom=15&size=600x400&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
 
     const image = baseUrl + startLat + "," + startLng + "%7C" + endLat + "," + endLng + optionsStr
 
     Routes.create({ name, startPoint: [startLat, startLng], endPoint: [endLat, endLng], distance, image, creator: req.session.user })
-        .then(() => {
-            res.redirect("/routes/list")
+        .then((elem) => {
+            const idUser = req.session.user._id
+            console.log(req.session.user.routesCreated)
+            const userRoutes = req.session.user.routesCreated
+            userRoutes.push(elem._id.toJSON())
+            console.log("userRoutes: ", userRoutes)
+            User.findByIdAndUpdate(idUser,{routesCreated: userRoutes},{new: true})
+            .then(()=>{
+                res.redirect("/routes/list")
+            })
+            .catch(err => console.log(err))            
         })
         .catch(err => console.log(err))
 
@@ -48,6 +57,19 @@ router.get("/list", isLoggedIn, (req, res, next) => {
 
 })
 
+//Personal User Running routes list page
+router.get("/fromuser", isLoggedIn, (req, res, next) => {
+    Routes.find({creator: req.session.user})
+        .populate("creator")
+        .then(route => {
+
+            res.render("trails/user-routes", { route })
+        })
+
+        .catch(err => console.log(err))
+
+})
+
 // Running route Details page
 router.get("/:id", isLoggedIn, (req, res, next) => {
     const { id } = req.params
@@ -60,7 +82,7 @@ router.get("/:id", isLoggedIn, (req, res, next) => {
 })
 
 //Edit Running route
-router.get("/:id/edit", isLoggedIn, (req, res, next) => {
+router.get("/:id/edit", isLoggedIn, isCreator, (req, res, next) => {
     const { id } = req.params
     Routes.findById(id)
         .then(elem => res.render("trails/edit-route", { elem }))
@@ -84,7 +106,7 @@ router.post("/:id/edit", isLoggedIn, (req, res, next) => {
 })
 
 //Delete running route
-router.post("/:id/delete", isLoggedIn, (req, res, next) => {
+router.post("/:id/delete", isLoggedIn, isCreator, (req, res, next) => {
     const { id } = req.params
     Routes.findByIdAndDelete(id)
         .then(() => {
