@@ -1,35 +1,54 @@
-<h2 class="title is-3 has-text-centered">Create a new route</h2>
+<h2 class="title is-3 has-text-centered mt-4">Create a new route</h2>
 
+<div class="columns is-flex is-justify-content-center">
+  <div class="box column is-four-fifths">
 <form action="/routes/create" method="POST">
-  <label> name </label>
-  <input type="text" name="name" />
-  <label>Private?</label>
-  <input type="radio" name="private" id="private" />
   <div id="map"></div>
 
   <div>
-    <h6>Start Point</h6>
-    <label for="">Latitude</label>
-    <input type="text" name="startLat" id="startlat" readonly />
-    <label for="">Longitude </label>
-    <input type="text" name="startLng" id="startlng" readonly />
+    <label class="label"> Name </label>
+    <input class="input" type="text" name="name" />
+    <label class="label">Private?</label>
+    <input class="radio" type="radio" name="private" id="private" />
   </div>
+
+  <div class="columns">
+      <div class="column is-flex is-flex-direction-column">
+          <h6 class="subtitle is-4 is-size-5 mb-1">Start Point</h6>
+          
+          <div >
+            <label><i>Latitude</i></label>
+            <input class="input is-rounded is-small has-text-centered" type="text" name="startLat" id="startlat" value={{elem.startPoint.[0]}} readonly />
+          </div>
+          <div>
+            <label class=""><i>Longitude</i></label>
+            <input class="input is-rounded is-small has-text-centered" type="text" name="startLng" id="startlng" value={{elem.startPoint.[1]}} readonly/>
+          </div>
+      </div>
+
+      <div class="column is-flex is-flex-direction-column">
+        <h6 class="subtitle is-4 is-size-5  mb-1">End Point</h6>
+        <div>
+          <label for=""><i>Latitude</i></label>
+          <input class="input is-rounded is-small has-text-centered" type="text" name="endLat" id="endlat" value={{elem.endPoint.[0]}} readonly />
+        </div>
+        <div>
+          <label for=""><i>Longitude</i></label>
+          <input class="input is-rounded is-small has-text-centered" type="text" name="endLng" id="endlng" value={{elem.endPoint.[1]}} readonly />
+        </div>
+      </div>
+    </div>
 
   <div>
-    <h6>End Point</h6>
-    <label for="">Latitude</label>
-    <input type="text" name="endLat" id="endlat" readonly />
-    <label for="">Longitude </label>
-    <input type="text" name="endLng" id="endlng" readonly />
+    <h6 class="label">Distance</h6>
+    <input class="input" type="text" name="distance" id="distancebox" readonly />
   </div>
-
-  <div>
-    <h6>Distance</h6>
-    <input type="text" name="distance" id="distancebox" readonly />
+  <div class="has-text-centered">
+    <button class="button is-primary" type="submit">Create</button>
   </div>
-
-  <button type="submit">Create</button>
 </form>
+</div>
+</div>
 
 <script
   src="https://maps.googleapis.com/maps/api/js?libraries=drawing,places&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
