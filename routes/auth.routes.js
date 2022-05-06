@@ -37,7 +37,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
   }
 
   //   ! This use case is using a regular expression to control for special characters and min length
-  /*
+ 
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   if (!regex.test(password)) {
@@ -46,7 +46,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
         "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
   }
-  */
+  
 
   // Search the database for a user with the username submitted in the form
   User.findOne({ username }).then((found) => {
@@ -178,7 +178,6 @@ router.post("/profile/:id/edit", isLoggedIn, fileUploader.single("profilePicture
     req.session.user = user;
     res.redirect("/auth/profile")})
   .catch(err => console.log(err))
-
 })
 
 module.exports = router;
