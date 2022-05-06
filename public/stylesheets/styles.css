@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+
 #myVideo {
     position: fixed;
     right: 0;
@@ -6,7 +8,89 @@
     min-height: 100%;
 }
 
-#nav-bar {
-    width: 100%;
+.presentation {
     
+    z-index: 999;
+    position: relative;
+    color: white;
+}
+
+    .presentation {
+        padding: 30px 5%;
+        margin-top: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .presentation .product-presentation {
+        width: 100%;
+        flex-shrink: 3;
+    }
+    .presentation .product-presentation h1 {
+        margin: 0;
+        font-size: 4vw;
+        width: 80%;
+    }
+    .presentation .product-presentation p {
+        font-weight: 300;
+        color: #e9e9e9;
+    }
+    .presentation .product-presentation button {
+        margin-top: 20px;
+        padding: 15px 20px;
+        font-size: 15px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .presentation .image-presentation img {
+        width: 80%;
+       
+    }
+    
+    .first .product-presentation button:hover {
+        background-color: inherit;
+        color: var(--violet);
+    }
+    .first .product-presentation .small-images {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .first .product-presentation .small-images .small {
+        padding: 20px;
+        background-color: #38383a;
+        margin: 0 15px 15px 0;
+        border-radius: 20px;
+        transition: filter 0.5s;
+    }
+    .first .product-presentation .small-images .small:hover {
+        filter: brightness(50%);
+    }
+    .first .product-presentation .small-images .small img {
+        width: 120px;
+    }
+
+
+footer {
+	margin: 0;
+	padding: 20px;
+	background-color: black;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+    z-index: 999;
+    position: relative;
+}
+footer h3 {
+	color: var(--violet);
+}
+footer p {
+	cursor: pointer;
+	color: #ccc;
+}
+footer p:hover {
+	color: white;
 }

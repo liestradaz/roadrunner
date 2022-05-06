@@ -10,6 +10,15 @@ const saltRounds = 10;
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
 
+
+// routes/movie.routes.js
+// ... all imports stay unchanged
+//cloudinary
+const fileUploader = require('../config/cloudinary.config');
+
+//... all the routes stay unchanged
+
+
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
@@ -21,7 +30,7 @@ router.get("/signup", isLoggedOut, (req, res) => {
 router.post("/signup", isLoggedOut, (req, res) => {
   const { username, email, password } = req.body;
 
-  if (!username) {
+  if (!username || !email || !password) {
     return res.status(400).render("auth/signup", {
       errorMessage: "Please provide your username.",
     });
@@ -34,7 +43,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
   }
 
   //   ! This use case is using a regular expression to control for special characters and min length
-  /*
+ 
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   if (!regex.test(password)) {
@@ -43,7 +52,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
         "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
   }
-  */
+  
 
   // Search the database for a user with the username submitted in the form
   User.findOne({ username }).then((found) => {
@@ -154,8 +163,13 @@ router.post("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-router.get("/profile", isLoggedIn, (req, res)=>{
-  res.render("user/profile")
+router.post("/profile/:id/edit", isLoggedIn, fileUploader.single("profilePicture") ,(req, res)=>{
+  const { id } = req.params
+  const { username, email } = req.body
+
+  User.findByIdAndUpdate(id, {image: username, email})
+  .then(updatedUSer=>console.log(updatedUSer))
+  .catch(err => console.log(err))
 })
 
 module.exports = router;
