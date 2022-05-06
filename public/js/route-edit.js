@@ -43,36 +43,6 @@ function markPos(map, startPos, endPos) {
     });
 }
 
-/* function calcRoute(map, origin, destination) {
-    let routeData = 1
-    const directionsService = new google.maps.DirectionsService;
-    //const directionsDisplay = new google.maps.DirectionsRenderer;
-    const directionRequest = {
-        origin: origin,
-        destination: destination,
-        //travelMode	string as DRIVING, BICYCLING, TRANSIT, WALKING
-        travelMode: 'WALKING'
-    };
-
-    directionsService.route(
-        directionRequest,
-        function (response, status) {
-            if (status === 'OK') {
-                // everything is ok
-                directionsDisplay.setDirections(response);
-                this.routeData = response.routes[0].legs[0]
-            } else {
-                // something went wrong
-                window.alert('Directions request failed due to ' + status);
-            }
-        }
-    );
-
-    directionsDisplay.setMap(map);
-
-    return directionsDisplay
-} */
-
 function calcRoute(map, origin, destination) {
     const directionsService = new google.maps.DirectionsService;
     const directionRequest = {

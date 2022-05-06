@@ -9,9 +9,16 @@ require("./db");
 // https://www.npmjs.com/package/express
 const express = require("express");
 
+const moment = require("moment")
+
 // Handles the handlebars
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
+
+//Handlebars helper to format date
+hbs.registerHelper("formatDate", function(date){
+    return moment(date).format("DD/MM/YYYY HH:mm A")
+})
 
 const app = express();
 

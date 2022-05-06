@@ -1,4 +1,4 @@
-<h2 class="title is-3 has-text-centered">Public Routes</h2>
+<h2 class="title is-3 has-text-centered mt-4">Public Routes</h2>
 <div class="columns is-multiline">
   {{#each route}}
     <div class="column is-one-quarter">
@@ -31,12 +31,12 @@
           <div class="content">
             <p><strong>Distance: </strong>{{distance}}</p>
 
-            <i>Last update: {{updatedAt}}</i>
+            <i>Last update: {{formatDate updatedAt}}</i>
           </div>
           <div class="card">
             <footer class="card-footer">
               <a href="/routes/{{_id}}" class="card-footer-item">Details</a>
-              <a href="#" class="card-footer-item">Share</a>
+              <a href="#" class="is-hidden card-footer-item">Share</a>
             </footer>
           </div>
         </div>

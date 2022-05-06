@@ -13,7 +13,11 @@ const runningRouteSchema = new Schema(
             type: Schema.Types.ObjectId, 
             ref: 'User',
             unique: false            
-        }/* ,
+        },
+        comments:[{
+            type: Schema.Types.ObjectId, 
+            ref: 'Comment',
+        }] ,/* ,
         followers: [{
             type: Schema.Types.ObjectId, 
             ref: 'User'

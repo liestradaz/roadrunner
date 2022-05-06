@@ -10,21 +10,15 @@ const saltRounds = 10;
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
 
-
-// routes/movie.routes.js
-// ... all imports stay unchanged
-//cloudinary
+//Cloudinary fileUploader
 const fileUploader = require('../config/cloudinary.config');
-
-//... all the routes stay unchanged
-
 
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.get("/signup", isLoggedOut, (req, res) => {
-  res.render("auth/signup");
+  res.render("auth/signup", {authLoggedIn: req.session.user});
 });
 
 router.post("/signup", isLoggedOut, (req, res) => {
@@ -60,7 +54,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
     if (found) {
       return res
         .status(400)
-        .render("auth.signup", { errorMessage: "Username already taken." });
+        .render("auth/signup", { errorMessage: "Username already taken." });
     }
 
     // if user is not found, create a new user - start with hashing the password
@@ -101,7 +95,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
 });
 
 router.get("/login", isLoggedOut, (req, res) => {
-  res.render("auth/login");
+  res.render("auth/login", {authLoggedIn: req.session.user});
 });
 
 router.post("/login", isLoggedOut, (req, res, next) => {
@@ -140,6 +134,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         }
         req.session.user = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
+
         return res.redirect("/");
       });
     })
@@ -163,12 +158,25 @@ router.post("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-router.post("/profile/:id/edit", isLoggedIn, fileUploader.single("profilePicture") ,(req, res)=>{
-  const { id } = req.params
-  const { username, email } = req.body
+router.get("/profile", isLoggedIn, (req, res)=>{
+  res.render("user/profile", {user: req.session.user, authLoggedIn: req.session.user})
+})
 
-  User.findByIdAndUpdate(id, {image: username, email})
-  .then(updatedUSer=>console.log(updatedUSer))
+router.get("/profile/:id/edit", isLoggedIn, (req, res)=>{
+  const { id } = req.params
+    User.findById(id)
+        .then(elem => res.render("user/profile-edit", { elem, authLoggedIn: req.session.user }))
+        .catch(err => console.log(err))
+})
+
+router.post("/profile/:id/edit", isLoggedIn, fileUploader.single("profilePicture"), (req, res)=>{
+  const { id } = req.params
+  const { username, email } = req.body  
+
+  User.findByIdAndUpdate(id, {username, email, profilePicture: req.file.path}, { new: true })
+  .then((user)=>{
+    req.session.user = user;
+    res.redirect("/auth/profile")})
   .catch(err => console.log(err))
 })
 

@@ -16,7 +16,10 @@ const userSchema = new Schema(
             lowercase: true
         },
         password: String,
-        profilePicture: String,
+        profilePicture: {
+            type: String,
+            default: "https://res.cloudinary.com/dv2iuomw8/image/upload/v1651785622/roadrunner/default-avatar-300x300-1_ds6b9w.jpg"
+        },     
         routesCreated: [String],
         followersList: [{
             type: Schema.Types.ObjectId, 
