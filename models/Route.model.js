@@ -17,11 +17,7 @@ const runningRouteSchema = new Schema(
         comments:[{
             type: Schema.Types.ObjectId, 
             ref: 'Comment',
-        }] ,/* ,
-        followers: [{
-            type: Schema.Types.ObjectId, 
-            ref: 'User'
-        }] */
+        }] 
     },
     {
         timestamps: true

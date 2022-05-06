@@ -15,7 +15,20 @@
   <body>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
+        <a href="/" class="/">
           <img src="/images/Image2.png" alt="logo" width="200" height="50" />
+        </a>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
 
       <div id="navbarBasicExample" class="navbar-menu">
@@ -33,17 +46,17 @@
               Profile
             </a>
             {{#if authLoggedIn}}
-            <div class="navbar-dropdown">
-              <a class="navbar-item" href="/auth/profile">
-                Your Profile
-              </a>
-              <a class="navbar-item" href="/routes/fromuser">
-                Your routes
-              </a>
-              <a href="/routes/create" class="navbar-item">
-                Create route
-              </a>
-            </div>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="/auth/profile">
+                  Your Profile
+                </a>
+                <a class="navbar-item" href="/routes/fromuser">
+                  Your routes
+                </a>
+                <a href="/routes/create" class="navbar-item">
+                  Create route
+                </a>
+              </div>
             {{/if}}
           </div>
         </div>
@@ -51,7 +64,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons is-flex is-align-content-center">
-              <form id="logout-form" action="/auth/logout" method="POST" >
+              <form id="logout-form" action="/auth/logout" method="POST">
                 {{#unless authLoggedIn}}
                   <a href="/auth/signup" class="button is-success">
                     <strong>Sign up</strong>
@@ -61,7 +74,7 @@
                   </a>
                 {{/unless}}
                 {{#if authLoggedIn}}
-                  <button type="submit" class="button is-light" >Log out</button>
+                  <button type="submit" class="button is-light">Log out</button>
                 {{/if}}
               </form>
             </div>
@@ -71,6 +84,38 @@
     </nav>
 
     {{{body}}}
+
+<footer id="index-footer">
+			<div class="column">
+				<h3>Aide</h3>
+				<p>contact@mail.com</p>
+				<p>Contact us</p>
+			</div>
+			
+			<div class="column">
+				<h3>Social Media</h3>
+        <p><a class="has-text-grey-light" href="https://github.com/liestradaz/roadrunner" target="_blank">GitHub</a></p>
+				<p>Facebook</p>
+				<p>Twitter</p>
+				<p>Instagram</p>
+			</div>
+
+			<div class="column" id="contact-lkdn">
+				<h3>Designed by:</h3>
+        <p>Georgina Aceves</p> 
+        <div class="is-flex is-flex-direction-row is-align-content-center">
+          <a class="has-text-grey-lighter" href="https://www.linkedin.com/in/georgina-aceves-gualito/" target="_blank">
+          <img class="image is-32x32" src="/images/linkedin.png" alt="linkedin"></a>
+          <a href="https://github.com/GeorginaAceves" target="_blank"><img class="has-background-grey-lighter image is-32x32" src="/images/GitHub.png" alt="github"></a>
+        </div>
+        <p>Luis Ignacio Estrada</p> 
+        <div class="is-flex is-flex-direction-row is-align-content-center">
+          <a class="has-text-grey-lighter" href="https://www.linkedin.com/in/liestradaz" target="_blank">
+          <img class="image is-32x32" src="/images/linkedin.png" alt="linkedin"></a>
+          <a href="https://github.com/liestradaz" target="_blank"><img class="has-background-grey-lighter image is-32x32" src="/images/GitHub.png" alt="github"></a>
+        </div>
+			</div>
+		</footer>
 
     <script src="/js/script.js"></script>
   </body>

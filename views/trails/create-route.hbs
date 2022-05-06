@@ -2,52 +2,53 @@
 
 <div class="columns is-flex is-justify-content-center">
   <div class="box column is-four-fifths">
-<form action="/routes/create" method="POST">
-  <div id="map"></div>
+    <form action="/routes/create" method="POST">
+      <div id="map"></div>
 
-  <div>
-    <label class="label"> Name </label>
-    <input class="input" type="text" name="name" />
-
-  </div>
-
-  <div class="columns">
-      <div class="column is-flex is-flex-direction-column">
-          <h6 class="subtitle is-4 is-size-5 mb-1">Start Point</h6>
-          
-          <div >
-            <label><i>Latitude</i></label>
-            <input class="input is-rounded is-small has-text-centered" type="text" name="startLat" id="startlat" value={{elem.startPoint.[0]}} readonly />
-          </div>
-          <div>
-            <label class=""><i>Longitude</i></label>
-            <input class="input is-rounded is-small has-text-centered" type="text" name="startLng" id="startlng" value={{elem.startPoint.[1]}} readonly/>
-          </div>
-      </div>
-
-      <div class="column is-flex is-flex-direction-column">
-        <h6 class="subtitle is-4 is-size-5  mb-1">End Point</h6>
-        <div>
-          <label for=""><i>Latitude</i></label>
-          <input class="input is-rounded is-small has-text-centered" type="text" name="endLat" id="endlat" value={{elem.endPoint.[0]}} readonly />
+      <div class="columns mt-4">
+        <div class="column is-half">
+          <label class="label"> Name </label>
+          <input class="input" type="text" name="name" />
         </div>
-        <div>
-          <label for=""><i>Longitude</i></label>
-          <input class="input is-rounded is-small has-text-centered" type="text" name="endLng" id="endlng" value={{elem.endPoint.[1]}} readonly />
+        <div class="column ">
+          <h6 class="label">Distance</h6>
+          <input class="input" type="text" name="distance" id="distancebox" readonly />
         </div>
       </div>
+
+      <div class="columns">
+          <div class="column is-flex is-flex-direction-column">
+              <h6 class="subtitle is-4 is-size-5 mb-1">Start Point</h6>
+              
+              <div >
+                <label><i>Latitude</i></label>
+                <input class="input is-rounded is-small has-text-centered" type="text" name="startLat" id="startlat" value={{elem.startPoint.[0]}} readonly />
+              </div>
+              <div>
+                <label class=""><i>Longitude</i></label>
+                <input class="input is-rounded is-small has-text-centered" type="text" name="startLng" id="startlng" value={{elem.startPoint.[1]}} readonly/>
+              </div>
+          </div>
+
+          <div class="column is-flex is-flex-direction-column">
+            <h6 class="subtitle is-4 is-size-5  mb-1">End Point</h6>
+            <div>
+              <label for=""><i>Latitude</i></label>
+              <input class="input is-rounded is-small has-text-centered" type="text" name="endLat" id="endlat" value={{elem.endPoint.[0]}} readonly />
+            </div>
+            <div>
+              <label for=""><i>Longitude</i></label>
+              <input class="input is-rounded is-small has-text-centered" type="text" name="endLng" id="endlng" value={{elem.endPoint.[1]}} readonly />
+            </div>
+          </div>
+        </div>
+
+
+      <div class="has-text-centered">
+        <button class="button is-primary mt-4 is-medium" type="submit">Create</button>
+      </div>
+    </form>
     </div>
-
-  <div>
-    <h6 class="label">Distance</h6>
-    <input class="input" type="text" name="distance" id="distancebox" readonly />
-    <p>{{GoogleAPI_key}}</p>
-  </div>
-  <div class="has-text-centered">
-    <button class="button is-primary" type="submit">Create</button>
-  </div>
-</form>
-</div>
 </div>
 
 <script
