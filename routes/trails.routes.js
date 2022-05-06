@@ -8,10 +8,15 @@ const Routes = require("../models/Route.model.js");
 const User = require("../models/User.model.js");
 const Comment = require("../models/Comment.model")
 
+//Cloudinary fileUploader
+const fileUploader = require("../config/cloudinary.config")
+
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
-const isCreator = require("../middleware/isCreator")
+const isCreator = require("../middleware/isCreator");
+const { Route } = require("express");
+const { array } = require("../config/cloudinary.config");
 
 
 //****************** Routes ******************
@@ -25,7 +30,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     
 
     baseUrl = "https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C"
-    optionsStr = "&zoom=15&size=600x400&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
+    optionsStr = "&zoom=15&size=600x400&key="+process.env.GoogleAPI_key
 
     const image = baseUrl + startLat + "," + startLng + "%7C" + endLat + "," + endLng + optionsStr
 
@@ -36,7 +41,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
             userRoutes.push(elem._id.toJSON())
             User.findByIdAndUpdate(idUser,{routesCreated: userRoutes},{new: true})
             .then(()=>{
-                res.redirect("/routes/list")
+                res.redirect("/routes/fromuser")
             })
             .catch(err => console.log(err))            
         })
@@ -99,12 +104,12 @@ router.post("/:id/edit", isLoggedIn, (req, res, next) => {
     const { name, private, startLat, startLng, endLat, endLng, distance } = req.body
 
     baseUrl = "https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C"
-    optionsStr = "&zoom=12&size=600x400&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
+    optionsStr = "&zoom=12&size=600x400&key="+process.env.GoogleAPI_key
 
     const image = baseUrl + startLat + "," + startLng + "%7C" + endLat + "," + endLng + optionsStr
     Routes.findByIdAndUpdate(id, { name, startPoint: [startLat, startLng], endPoint: [endLat, endLng], distance, image }, { new: true })
         .then(() => {
-            res.redirect("/routes/list")
+            res.redirect("/routes/fromuser")
         })
         .catch(err => console.log(err))
 })
@@ -114,7 +119,7 @@ router.post("/:id/delete", isLoggedIn, isCreator, (req, res, next) => {
     const { id } = req.params
     Routes.findByIdAndDelete(id)
         .then(() => {
-            res.redirect("/routes/list")
+            res.redirect("/routes/fromuser")
         })
         .catch(err => console.log(err))
 })
@@ -141,16 +146,29 @@ router.post("/:id/comment", isLoggedIn, (req,res,next) => {
             Routes.findByIdAndUpdate(routeId, {comments:commentsRoute}, {new: true})
             .then(updatedRoute => {
                 //Add route element to comment
-                Comment.findOneAndUpdate(comment,{route:updatedRoute},{new: true})
-                .then(()=>res.redirect("/routes/"+routeId))
-                .catch(err=>console.log(err))
-            })
+                res.redirect("/routes/"+routeId)})
             .catch(err=>console.log(err))
         })
         .catch(err=>console.log(err))
     })
     .catch(err=>console.log(err))
+})
 
+//Delete comment
+router.post("/:routeid/comment/:commentid/delete", isLoggedIn, (req, res, next) => {
+    const { routeid, commentid } = req.params
+    Comment.findByIdAndDelete(commentid)
+        .then(() => {
+            Routes.findById(routeid)
+            .then((elem)=>{
+                commentsArr = elem.comments
+                const idx = commentsArr.indexOf(commentid)
+                if(idx>-1) commentsArr.splice(idx,1)
+            })
+            .catch(err => console.log(err))
+            res.redirect("/routes/"+routeid)
+        })
+        .catch(err => console.log(err))
 })
 
 module.exports = router;

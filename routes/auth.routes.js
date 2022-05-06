@@ -10,6 +10,9 @@ const saltRounds = 10;
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
 
+//Cloudinary fileUploader
+const fileUploader = require('../config/cloudinary.config');
+
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
@@ -21,7 +24,7 @@ router.get("/signup", isLoggedOut, (req, res) => {
 router.post("/signup", isLoggedOut, (req, res) => {
   const { username, email, password } = req.body;
 
-  if (!username) {
+  if (!username || !email || !password) {
     return res.status(400).render("auth/signup", {
       errorMessage: "Please provide your username.",
     });
@@ -51,7 +54,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
     if (found) {
       return res
         .status(400)
-        .render("auth.signup", { errorMessage: "Username already taken." });
+        .render("auth/signup", { errorMessage: "Username already taken." });
     }
 
     // if user is not found, create a new user - start with hashing the password
@@ -156,7 +159,26 @@ router.post("/logout", isLoggedIn, (req, res) => {
 });
 
 router.get("/profile", isLoggedIn, (req, res)=>{
-  res.render("user/profile", {authLoggedIn: req.session.user})
+  res.render("user/profile", {user: req.session.user, authLoggedIn: req.session.user})
+})
+
+router.get("/profile/:id/edit", isLoggedIn, (req, res)=>{
+  const { id } = req.params
+    User.findById(id)
+        .then(elem => res.render("user/profile-edit", { elem, authLoggedIn: req.session.user }))
+        .catch(err => console.log(err))
+})
+
+router.post("/profile/:id/edit", isLoggedIn, fileUploader.single("profilePicture"), (req, res)=>{
+  const { id } = req.params
+  const { username, email } = req.body  
+
+  User.findByIdAndUpdate(id, {username, email, profilePicture: req.file.path}, { new: true })
+  .then((user)=>{
+    req.session.user = user;
+    res.redirect("/auth/profile")})
+  .catch(err => console.log(err))
+
 })
 
 module.exports = router;

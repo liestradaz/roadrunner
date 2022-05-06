@@ -82,8 +82,6 @@ function calcRoute(map, origin, destination) {
 function locateAddress(map){
     const geocoder = new google.maps.Geocoder();
 
-  
-
       const address = document.getElementById('address').value;
        
         geocoder.geocode({ address: address }, (results, status) => {
@@ -107,7 +105,7 @@ function getMapImage(startPos, endPos) {
     baseUrl = "https://maps.googleapis.com/maps/api/staticmap?"
     size = "&size=600x400"
     markers = "markers=color:red%7C"
-    options = "&zoom=12&size=600x400&key=AIzaSyChdc2N7AHjRp9ERUZmD_SJy68ivwF7qEM"
+    options = "&zoom=12&size=600x400&key="+ process.env.GoogleAPI_key
 
     url = baseUrl + markers + startPos.lat + "," + startPos.lng + "%7C" + endPos.lat + "," + endPos.lng + options
 
@@ -151,7 +149,6 @@ function startMap() {
       endLatBox.value = endPos.lat
       endLngBox.value = endPos.lng
 
-      console.log(getMapImage(startPos,endPos))
       let rData
       calcRoute(map, startPos, endPos)
         .then(data => {
